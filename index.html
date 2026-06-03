@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toko Roti Artisan - Roti Segar Setiap Hari</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-left">
+                <div class="logo">
+                    <span class="logo-icon">🥖</span>
+                    <span class="logo-text">Toko Roti Artisan</span>
+                </div>
+            </div>
+
+            <div class="navbar-center">
+                <div class="search-bar">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        class="search-input" 
+                        placeholder="Cari produk roti..."
+                    >
+                    <button class="search-btn">🔍</button>
+                </div>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+
+            <div class="navbar-right">
+                <div class="category-menu">
+                    <button class="category-btn" data-category="semua">Semua</button>
+                    <button class="category-btn" data-category="roti-putih">Roti Putih</button>
+                    <button class="category-btn" data-category="roti-coklat">Roti Coklat</button>
+                    <button class="category-btn" data-category="kue-kering">Kue Kering</button>
+                    <button class="category-btn" data-category="topping">Topping</button>
+                </div>
+                <button class="cart-btn" id="cartBtn">
+                    🛒 <span id="cartCount" class="cart-count">0</span>
+                </button>
+            </div>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="search-bar-mobile">
+            <input 
+                type="text" 
+                id="searchInputMobile" 
+                class="search-input" 
+                placeholder="Cari produk..."
+            >
+            <button class="search-btn">🔍</button>
+        </div>
+        <div class="category-menu-mobile">
+            <button class="category-btn" data-category="semua">Semua</button>
+            <button class="category-btn" data-category="roti-putih">Roti Putih</button>
+            <button class="category-btn" data-category="roti-coklat">Roti Coklat</button>
+            <button class="category-btn" data-category="kue-kering">Kue Kering</button>
+            <button class="category-btn" data-category="topping">Topping</button>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-left">
+                <h1 class="hero-title">Roti Segar Setiap Hari</h1>
+                <p class="hero-subtitle">Nikmati kelezatan roti artisan yang dibuat dengan bahan-bahan terbaik dan dipanggang segar setiap pagi. Kami menghadirkan cita rasa tradisional dengan sentuhan modern.</p>
+                <button class="hero-btn" id="orderBtn">Pesan Sekarang</button>
+            </div>
+            <div class="hero-right">
+                <div class="hero-slider">
+                    <div class="slider-container">
+                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&h=500&fit=crop" alt="Roti Artisan" class="slider-img active">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&h=500&fit=crop" alt="Croissant" class="slider-img">
+                        <img src="https://images.unsplash.com/photo-1618883713919-c52a13906bfd?w=500&h=500&fit=crop" alt="Kue" class="slider-img">
+                    </div>
+                    <button class="slider-nav prev" id="prevSlide">❮</button>
+                    <button class="slider-nav next" id="nextSlide">❯</button>
+                    <div class="slider-dots">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT GRID MENU -->
+    <section class="products" id="productsSection">
+        <div class="section-header">
+            <h2>Menu Produk Kami</h2>
+            <p>Pilihan lengkap roti dan kue berkualitas tinggi</p>
+        </div>
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be loaded here by JavaScript -->
+        </div>
+    </section>
+
+    <!-- CUSTOM CAKE SECTION -->
+    <section class="custom-cake">
+        <div class="custom-cake-container">
+            <h2>Desain Kue Custom Anda</h2>
+            <p>Buat kue impian Anda dengan fitur kustomisasi kami</p>
+            
+            <div class="customizer">
+                <div class="customizer-preview">
+                    <div class="cake-preview" id="cakePreview">
+                        <div class="cake-layer" id="cakeLayer" style="background-color: rgb(210, 105, 30); border-radius: 50%;">
+                            <span id="cakeText">Nama Anda</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="customizer-controls">
+                    <div class="control-group">
+                        <label>Warna Kue:</label>
+                        <div class="color-options">
+                            <button class="color-btn" data-color="rgb(210, 105, 30)" style="background-color: rgb(210, 105, 30);" title="Coklat"></button>
+                            <button class="color-btn" data-color="rgb(255, 215, 0)" style="background-color: rgb(255, 215, 0);" title="Kuning"></button>
+                            <button class="color-btn" data-color="rgb(220, 20, 60)" style="background-color: rgb(220, 20, 60);" title="Merah"></button>
+                            <button class="color-btn" data-color="rgb(128, 0, 128)" style="background-color: rgb(128, 0, 128);" title="Ungu"></button>
+                            <button class="color-btn" data-color="rgb(255, 192, 203)" style="background-color: rgb(255, 192, 203);" title="Pink"></button>
+                            <button class="color-btn" data-color="rgb(169, 169, 169)" style="background-color: rgb(169, 169, 169);" title="Abu-abu"></button>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="cakeName">Nama/Tulisan pada Kue:</label>
+                        <input type="text" id="cakeName" placeholder="Masukkan nama atau teks" maxlength="20">
+                    </div>
+
+                    <div class="control-group">
+                        <label>Toping:</label>
+                        <div class="topping-options">
+                            <label><input type="checkbox" class="topping-checkbox" value="Coklat Sprinkles" data-price="15000"> Coklat Sprinkles (+Rp 15.000)</label>
+                            <label><input type="checkbox" class="topping-checkbox" value="Buah Segar" data-price="25000"> Buah Segar (+Rp 25.000)</label>
+                            <label><input type="checkbox" class="topping-checkbox" value="Kacang Panggang" data-price="20000"> Kacang Panggang (+Rp 20.000)</label>
+                            <label><input type="checkbox" class="topping-checkbox" value="Glazur Putih" data-price="10000"> Glazur Putih (+Rp 10.000)</label>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="cakeSize">Ukuran Kue:</label>
+                        <select id="cakeSize">
+                            <option value="kecil" data-price="80000">Kecil (8") - Rp 80.000</option>
+                            <option value="sedang" data-price="120000" selected>Sedang (10") - Rp 120.000</option>
+                            <option value="besar" data-price="180000">Besar (12") - Rp 180.000</option>
+                        </select>
+                    </div>
+
+                    <div class="customizer-total">
+                        <h3>Total: <span id="customCakePrice">Rp 120.000</span></h3>
+                    </div>
+
+                    <button class="add-cart-btn" id="addCustomCakeBtn">Tambah ke Keranjang</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials">
+        <div class="section-header">
+            <h2>Testimoni Pelanggan</h2>
+            <p>Lihat apa yang dikatakan pelanggan kami</p>
+        </div>
+        <div class="testimonials-carousel" id="testimonialsCarousel">
+            <!-- Testimonials will be loaded here by JavaScript -->
+        </div>
+        <div class="carousel-controls">
+            <button class="carousel-btn" id="prevTestimonial">❮ Sebelumnya</button>
+            <button class="carousel-btn" id="nextTestimonial">Berikutnya ❯</button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Tentang Kami</h3>
+                <p>Toko Roti Artisan adalah usaha keluarga yang berdedikasi menghadirkan roti berkualitas tinggi dengan bahan-bahan pilihan terbaik.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Jam Operasional</h3>
+                <ul>
+                    <li>Senin - Jumat: 07:00 - 20:00</li>
+                    <li>Sabtu: 07:00 - 21:00</li>
+                    <li>Minggu: 08:00 - 20:00</li>
+                    <li class="holiday">Libur: Hari Raya & Tahun Baru</li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Hubungi Kami</h3>
+                <ul>
+                    <li>📞 +62 812-3456-7890</li>
+                    <li>📧 info@tokorotiartisan.com</li>
+                    <li>📍 Jl. Mitra Bakery No. 123, Jakarta</li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Media Sosial</h3>
+                <div class="social-links">
+                    <a href="#" title="Facebook">f</a>
+                    <a href="#" title="Instagram">📷</a>
+                    <a href="#" title="Twitter">𝕏</a>
+                    <a href="#" title="TikTok">🎵</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Metode Pembayaran</h3>
+                <div class="payment-methods">
+                    <span class="payment-icon">💳</span>
+                    <span class="payment-icon">🏦</span>
+                    <span class="payment-icon">💰</span>
+                    <span class="payment-icon">📱</span>
+                </div>
+            </div>
+
+            <div class="footer-section newsletter">
+                <h3>Berlangganan Newsletter</h3>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="Masukkan email Anda" required>
+                    <button type="submit">Berlangganan</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Toko Roti Artisan. Semua hak cipta dilindungi.</p>
+        </div>
+    </footer>
+
+    <!-- SHOPPING CART MODAL -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-modal-content">
+            <div class="cart-modal-header">
+                <h2>Keranjang Belanja</h2>
+                <button class="close-cart" id="closeCartBtn">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be displayed here -->
+            </div>
+            <div class="cart-summary">
+                <div class="cart-subtotal">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">Rp 0</span>
+                </div>
+                <div class="cart-tax">
+                    <span>Pajak (10%):</span>
+                    <span id="taxAmount">Rp 0</span>
+                </div>
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotal">Rp 0</span>
+                </div>
+            </div>
+            <div class="cart-actions">
+                <button class="btn-secondary" id="continueShopping">Lanjut Belanja</button>
+                <button class="btn-primary" id="checkout">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- OVERLAY -->
+    <div class="overlay" id="overlay"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
