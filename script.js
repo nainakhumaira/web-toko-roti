@@ -5,41 +5,176 @@
 const products = [
     {
         id: 1,
-        title: "Roti Putih Premium",
-        description: "Roti putih lembut dengan tekstur sempurna",
-        price: 45000,
-        image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=400&fit=crop",
+        title: "Roti Tawar Gulung",
+        description: "Roti tawar gulung lembut dengan isi premium yang cocok untuk sarapan dan cemilan.",
+        price: 48000,
+        image: "https://images.unsplash.com/photo-1576502200916-5cbd4c999f74?w=400&h=400&fit=crop",
         category: "roti-putih",
         rating: 4.8,
-        reviews: 156,
-        badges: ["Best Seller"]
+        reviews: 145,
+        badges: ["Best Seller"],
+        variants: [
+            {
+                name: "Original",
+                price: 48000,
+                image: "https://images.unsplash.com/photo-1576502200916-5cbd4c999f74?w=400&h=400&fit=crop"
+            },
+            {
+                name: "Coklat Hazelnut",
+                price: 52000,
+                image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=400&fit=crop"
+            },
+            {
+                name: "Keju Mozzarella",
+                price: 53000,
+                image: "https://images.unsplash.com/photo-1511415512841-9d5a9b39c7d8?w=400&h=400&fit=crop"
+            }
+        ]
     },
     {
         id: 2,
-        title: "Croissant Butter",
-        description: "Croissant renyah dengan lapisan mentega yang lezat",
-        price: 65000,
-        image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=400&fit=crop",
-        category: "roti-coklat",
-        rating: 4.9,
-        reviews: 234,
-        badges: ["Best Seller", "Gluten-Free"]
+        title: "Baguette Perancis",
+        description: "Baguette Prancis dengan tekstur renyah dan aroma gandum segar.",
+        price: 50000,
+        image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&h=400&fit=crop",
+        category: "roti-putih",
+        rating: 4.8,
+        reviews: 198,
+        badges: [],
+        variants: [
+            {
+                name: "Original",
+                price: 50000,
+                image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&h=400&fit=crop"
+            },
+            {
+                name: "Garlic Herb",
+                price: 55000,
+                image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&h=400&fit=crop"
+            },
+            {
+                name: "Keju Parmesan",
+                price: 58000,
+                image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=400&fit=crop"
+            }
+        ]
     },
     {
         id: 3,
-        title: "Roti Gandum Sehat",
-        description: "Roti gandum utuh kaya serat dan nutrisi",
-        price: 55000,
-        image: "https://images.unsplash.com/photo-1618883713919-c52a13906bfd?w=400&h=400&fit=crop",
+        title: "Croissant Butter",
+        description: "Croissant lapis mentega Prancis renyah dan empuk di setiap gigitan.",
+        price: 65000,
+        image: "https://images.unsplash.com/photo-1506084868230-bb9d95c24759?w=400&h=400&fit=crop",
         category: "roti-coklat",
-        rating: 4.7,
-        reviews: 89,
-        badges: ["Gluten-Free"]
+        rating: 4.9,
+        reviews: 234,
+        badges: ["Best Seller"],
+        variants: [
+            {
+                name: "Classic",
+                price: 65000,
+                image: "https://images.unsplash.com/photo-1506084868230-bb9d95c24759?w=400&h=400&fit=crop"
+            },
+            {
+                name: "Coklat",
+                price: 70000,
+                image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&h=400&fit=crop"
+            },
+            {
+                name: "Almond",
+                price: 72000,
+                image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400&h=400&fit=crop"
+            }
+        ]
     },
     {
         id: 4,
+        title: "Roti Gandum Sehat",
+        description: "Roti gandum utuh penuh serat yang menyehatkan untuk keluarga.",
+        price: 55000,
+        image: "https://images.unsplash.com/photo-1512058564366-c9e7d33f8f86?w=400&h=400&fit=crop",
+        category: "roti-putih",
+        rating: 4.7,
+        reviews: 89,
+        badges: ["Healthy"],
+        variants: [
+            {
+                name: "Original",
+                price: 55000,
+                image: "https://images.unsplash.com/photo-1512058564366-c9e7d33f8f86?w=400&h=400&fit=crop"
+            },
+            {
+                name: "Kismis Apel",
+                price: 59000,
+                image: "https://images.unsplash.com/photo-1506084868230-bb9d95c24759?w=400&h=400&fit=crop"
+            },
+            {
+                name: "Oat Madu",
+                price: 60000,
+                image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=400&fit=crop"
+            }
+        ]
+    },
+    {
+        id: 5,
+        title: "Roti Sourdough",
+        description: "Roti asam alami berkulit renyah dan isi empuk dengan rasa karamel alami.",
+        price: 60000,
+        image: "https://images.unsplash.com/photo-1548373383-8672b97f6d04?w=400&h=400&fit=crop",
+        category: "roti-putih",
+        rating: 4.9,
+        reviews: 203,
+        badges: ["Best Seller"],
+        variants: [
+            {
+                name: "Classic",
+                price: 60000,
+                image: "https://images.unsplash.com/photo-1548373383-8672b97f6d04?w=400&h=400&fit=crop"
+            },
+            {
+                name: "Olive",
+                price: 65000,
+                image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&h=400&fit=crop"
+            },
+            {
+                name: "Keju Cheddar",
+                price: 67000,
+                image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400&h=400&fit=crop"
+            }
+        ]
+    },
+    {
+        id: 6,
+        title: "Roti Putih Premium",
+        description: "Roti putih lembut dengan tekstur sempurna, cocok untuk sandwich dan roti isi.",
+        price: 45000,
+        image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=400&h=400&fit=crop",
+        category: "roti-putih",
+        rating: 4.8,
+        reviews: 156,
+        badges: ["Favorite"],
+        variants: [
+            {
+                name: "Original",
+                price: 45000,
+                image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=400&h=400&fit=crop"
+            },
+            {
+                name: "Coklat",
+                price: 49000,
+                image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=400&fit=crop"
+            },
+            {
+                name: "Kismis",
+                price: 50000,
+                image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=400&h=400&fit=crop"
+            }
+        ]
+    },
+    {
+        id: 7,
         title: "Kue Lapis Legit",
-        description: "Kue tradisional berlapis dengan rasa kaya dan nikmat",
+        description: "Kue tradisional berlapis dengan aroma rempah dan rasa legit yang khas.",
         price: 75000,
         image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=400&fit=crop",
         category: "kue-kering",
@@ -48,9 +183,9 @@ const products = [
         badges: ["Best Seller"]
     },
     {
-        id: 5,
+        id: 8,
         title: "Donat Coklat Glazur",
-        description: "Donat empuk dengan glazur coklat yang menggugah selera",
+        description: "Donat empuk dengan glazur coklat kaya rasa, cocok untuk cemilan sore.",
         price: 35000,
         image: "https://images.unsplash.com/photo-1495003542422-01d4ec16b894?w=400&h=400&fit=crop",
         category: "kue-kering",
@@ -59,48 +194,48 @@ const products = [
         badges: []
     },
     {
-        id: 6,
-        title: "Baguette Perancis",
-        description: "Baguette autentik dengan kulit renyah dan dalam empuk",
-        price: 50000,
-        image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=400&fit=crop",
-        category: "roti-putih",
-        rating: 4.8,
-        reviews: 198,
-        badges: []
-    },
-    {
-        id: 7,
-        title: "Roti Tawar Gulung",
-        description: "Roti tawar premium dengan tekstur gulung yang unik",
-        price: 48000,
-        image: "https://images.unsplash.com/photo-1618883713919-c52a13906bfd?w=400&h=400&fit=crop",
-        category: "roti-putih",
-        rating: 4.7,
-        reviews: 145,
-        badges: ["Gluten-Free"]
-    },
-    {
-        id: 8,
+        id: 9,
         title: "Muffin Blueberry",
-        description: "Muffin empuk dengan berry asli yang segar",
+        description: "Muffin lembut dengan blueberry segar yang meledak di mulut.",
         price: 40000,
-        image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=400&fit=crop",
+        image: "https://images.unsplash.com/photo-1458642849426-cfb724f15ef7?w=400&h=400&fit=crop",
         category: "kue-kering",
         rating: 4.8,
         reviews: 256,
         badges: []
     },
     {
-        id: 9,
-        title: "Roti Sourdough",
-        description: "Roti asam alami dengan cita rasa kompleks yang mendalam",
-        price: 60000,
-        image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=400&fit=crop",
-        category: "roti-coklat",
+        id: 10,
+        title: "Kue Tart Coklat",
+        description: "Tart coklat lembut dengan lapisan ganache premium dan dekorasi elegan.",
+        price: 180000,
+        image: "https://images.unsplash.com/photo-1601042004545-2a728a6fa9e2?w=400&h=400&fit=crop",
+        category: "kue-tart",
         rating: 4.9,
-        reviews: 203,
-        badges: ["Best Seller"]
+        reviews: 110,
+        badges: ["Custom" ]
+    },
+    {
+        id: 11,
+        title: "Kue Tart Red Velvet",
+        description: "Tart red velvet lembut dengan krim keju vanilla segar.",
+        price: 190000,
+        image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=400&fit=crop",
+        category: "kue-tart",
+        rating: 4.9,
+        reviews: 92,
+        badges: []
+    },
+    {
+        id: 12,
+        title: "Kue Tart Buah Segar",
+        description: "Tart buah segar dengan krim vanilla dan topping buah musiman.",
+        price: 200000,
+        image: "https://images.unsplash.com/photo-1514516870923-7a30146a0a9c?w=400&h=400&fit=crop",
+        category: "kue-tart",
+        rating: 4.8,
+        reviews: 78,
+        badges: []
     }
 ];
 
@@ -115,7 +250,7 @@ const testimonials = [
         title: "Pelanggan Setia",
         avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
         rating: 5,
-        text: "Roti dari Toko Roti Artisan selalu segar dan lezat. Kualitas terjamin dan harga sangat masuk akal. Saya selalu pesan setiap minggu!",
+        text: "Roti dari Bakery Naichi selalu segar dan lezat. Kualitas terjamin dan harga sangat masuk akal. Saya selalu pesan setiap minggu!",
         verified: true
     },
     {
@@ -166,6 +301,7 @@ const state = {
     currentSlide: 0,
     currentTestimonialIndex: 0,
     wishlist: [],
+    selectedVariants: {},
     customCake: {
         color: "rgb(210, 105, 30)",
         text: "Nama Anda",
@@ -223,8 +359,15 @@ const elements = {
     subtotal: document.getElementById("subtotal"),
     taxAmount: document.getElementById("taxAmount"),
     continueShopping: document.getElementById("continueShopping"),
-    checkout: document.getElementById("checkout"),
-    overlay: document.getElementById("overlay"),
+    checkout: document.getElementById("checkout"),    checkoutPanel: document.getElementById("checkoutPanel"),
+    checkoutForm: document.getElementById("checkoutForm"),
+    checkoutName: document.getElementById("checkoutName"),
+    checkoutPhone: document.getElementById("checkoutPhone"),
+    checkoutAddress: document.getElementById("checkoutAddress"),
+    checkoutMethod: document.getElementById("checkoutMethod"),
+    checkoutPayment: document.getElementById("checkoutPayment"),
+    checkoutSummary: document.getElementById("checkoutSummary"),
+    cancelCheckout: document.getElementById("cancelCheckout"),    overlay: document.getElementById("overlay"),
     
     // Newsletter
     newsletterForm: document.getElementById("newsletterForm")
@@ -250,10 +393,17 @@ function renderProducts(category = "semua") {
         ? products 
         : products.filter(p => p.category === category);
     
-    elements.productsGrid.innerHTML = filteredProducts.map(product => `
+    elements.productsGrid.innerHTML = filteredProducts.map(product => {
+        const selectedIndex = state.selectedVariants[product.id] ?? 0;
+        const variant = product.variants ? product.variants[selectedIndex] : null;
+        const image = variant?.image || product.image;
+        const price = variant?.price || product.price;
+        const variantLabel = variant ? ` - ${variant.name}` : "";
+
+        return `
         <div class="product-card" data-product-id="${product.id}">
             <div class="product-image">
-                <img src="${product.image}" alt="${product.title}">
+                <img src="${image}" alt="${product.title} ${variantLabel}">
                 <div class="product-badges">
                     ${product.badges.map(badge => `
                         <span class="badge ${badge.toLowerCase().replace(/\s/g, '-')}">${badge}</span>
@@ -261,14 +411,21 @@ function renderProducts(category = "semua") {
                 </div>
             </div>
             <div class="product-info">
-                <h3 class="product-title">${product.title}</h3>
+                <h3 class="product-title">${product.title}${variantLabel}</h3>
                 <p class="product-description">${product.description}</p>
                 <div class="product-rating">
                     <span class="stars">${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}</span>
                     <span class="rating-count">${product.reviews} ulasan</span>
                 </div>
+                ${product.variants ? `
+                <div class="product-variants">
+                    ${product.variants.map((variantItem, index) => `
+                        <button class="variant-btn ${selectedIndex === index ? 'active' : ''}" data-product-id="${product.id}" data-variant-index="${index}">${variantItem.name}</button>
+                    `).join('')}
+                </div>
+                ` : ''}
                 <div class="product-price">
-                    <span class="price">Rp ${product.price.toLocaleString('id-ID')}</span>
+                    <span class="price">Rp ${price.toLocaleString('id-ID')}</span>
                 </div>
                 <div class="product-actions">
                     <button class="add-to-cart-btn" data-product-id="${product.id}">
@@ -278,12 +435,21 @@ function renderProducts(category = "semua") {
                 </div>
             </div>
         </div>
-    `).join('');
+    `;
+    }).join('');
     
     attachProductEventListeners();
 }
 
 function attachProductEventListeners() {
+    document.querySelectorAll(".variant-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const productId = parseInt(e.target.dataset.productId);
+            const variantIndex = parseInt(e.target.dataset.variantIndex);
+            selectVariant(productId, variantIndex);
+        });
+    });
+
     document.querySelectorAll(".add-to-cart-btn").forEach(btn => {
         btn.addEventListener("click", (e) => {
             const productId = parseInt(e.target.dataset.productId);
@@ -299,22 +465,43 @@ function attachProductEventListeners() {
     });
 }
 
+function selectVariant(productId, variantIndex) {
+    state.selectedVariants[productId] = variantIndex;
+    renderProducts(state.currentCategory);
+}
+
+function getSelectedVariant(productId) {
+    const product = products.find(p => p.id === productId);
+    const variantIndex = state.selectedVariants[productId] ?? 0;
+    return product?.variants?.[variantIndex] || null;
+}
+
 function addToCart(productId, quantity = 1) {
     const product = products.find(p => p.id === productId);
-    const existingItem = state.cart.find(item => item.id === productId && !item.isCustom);
+    const variant = getSelectedVariant(productId);
+    const itemTitle = variant ? `${product.title} - ${variant.name}` : product.title;
+    const itemPrice = variant ? variant.price : product.price;
+    const itemImage = variant ? variant.image : product.image;
+
+    const existingItem = state.cart.find(item => item.id === productId && item.variantName === (variant?.name || null) && !item.isCustom);
     
     if (existingItem) {
         existingItem.quantity += quantity;
     } else {
         state.cart.push({
-            ...product,
+            id: productId,
+            title: itemTitle,
+            description: product.description,
+            price: itemPrice,
+            image: itemImage,
             quantity: quantity,
+            variantName: variant?.name || null,
             cartItemId: Date.now()
         });
     }
     
     updateCartDisplay();
-    showNotification(`${product.title} ditambahkan ke keranjang`);
+    showNotification(`${itemTitle} ditambahkan ke keranjang`);
 }
 
 function toggleWishlist(productId, button) {
@@ -631,8 +818,13 @@ function updateCartTotals() {
 }
 
 function toggleCartModal() {
+    const isActive = elements.cartModal.classList.contains("active");
     elements.cartModal.classList.toggle("active");
     elements.overlay.classList.toggle("active");
+
+    if (isActive) {
+        closeCheckoutPanel();
+    }
 }
 
 // Make updateQuantity and removeFromCart global
@@ -680,26 +872,77 @@ function setupNewsletter() {
 // CHECKOUT
 // =====================================================
 
+function renderCheckoutSummary() {
+    const subtotal = state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const tax = Math.round(subtotal * 0.1);
+    const total = subtotal + tax;
+    
+    const itemsHtml = state.cart.map(item => `
+        <div>${item.title} x${item.quantity} - Rp ${item.price.toLocaleString('id-ID')}</div>
+    `).join('');
+    
+    elements.checkoutSummary.innerHTML = `
+        <strong>Ringkasan Pesanan</strong>
+        <div>${itemsHtml}</div>
+        <div>Subtotal: Rp ${subtotal.toLocaleString('id-ID')}</div>
+        <div>Pajak 10%: Rp ${tax.toLocaleString('id-ID')}</div>
+        <div><strong>Total: Rp ${total.toLocaleString('id-ID')}</strong></div>
+    `;
+}
+
+function openCheckoutPanel() {
+    if (!elements.cartModal.classList.contains("active")) {
+        toggleCartModal();
+    }
+    renderCheckoutSummary();
+    elements.checkoutPanel.classList.add("active");
+}
+
+function closeCheckoutPanel() {
+    elements.checkoutPanel.classList.remove("active");
+}
+
+function confirmOrder() {
+    const name = elements.checkoutName.value.trim();
+    const phone = elements.checkoutPhone.value.trim();
+    const address = elements.checkoutAddress.value.trim();
+    const method = elements.checkoutMethod.value;
+    const payment = elements.checkoutPayment.value;
+
+    if (!name || !phone || !address) {
+        alert("Silakan lengkapi semua data checkout sebelum melanjutkan.");
+        return;
+    }
+
+    const total = state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const tax = Math.round(total * 0.1);
+    const finalTotal = total + tax;
+
+    showNotification(`Pesanan untuk ${name} berhasil! Total pembayaran Rp ${finalTotal.toLocaleString('id-ID')}`);
+    elements.checkoutForm.reset();
+    closeCheckoutPanel();
+    state.cart = [];
+    updateCartDisplay();
+}
+
 function setupCheckout() {
     elements.checkout.addEventListener("click", () => {
         if (state.cart.length === 0) {
             alert("Keranjang Anda kosong. Silakan tambahkan produk terlebih dahulu.");
             return;
         }
-        
-        const total = state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        const tax = Math.round(total * 0.1);
-        const finalTotal = total + tax;
-        
-        const orderSummary = state.cart.map(item => `${item.title} x${item.quantity}`).join("\n");
-        
-        alert(`Pesanan Anda:\n\n${orderSummary}\n\nSubtotal: Rp ${total.toLocaleString('id-ID')}\nPajak: Rp ${tax.toLocaleString('id-ID')}\nTotal: Rp ${finalTotal.toLocaleString('id-ID')}\n\nTerima kasih telah berbelanja!`);
-        
-        state.cart = [];
-        updateCartDisplay();
-        toggleCartModal();
+        openCheckoutPanel();
     });
     
+    elements.cancelCheckout.addEventListener("click", () => {
+        closeCheckoutPanel();
+    });
+
+    elements.checkoutForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        confirmOrder();
+    });
+
     elements.continueShopping.addEventListener("click", () => {
         toggleCartModal();
     });
