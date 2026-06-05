@@ -41,6 +41,9 @@
                 <button class="cart-btn" id="cartBtn">
                     🛒 <span id="cartCount" class="cart-count">0</span>
                 </button>
+                <button class="cart-btn wishlist-nav-btn" id="wishlistBtn">
+                    ❤️ <span id="wishlistCount" class="cart-count">0</span>
+                </button>
             </div>
 
             <div class="hamburger" id="hamburger">
@@ -342,6 +345,22 @@
                         <button type="submit" class="btn-primary">Konfirmasi Pesanan</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- WISHLIST MODAL -->
+    <div class="wishlist-modal" id="wishlistModal">
+        <div class="wishlist-modal-content">
+            <div class="cart-modal-header">
+                <h2>Daftar Wishlist</h2>
+                <button class="close-cart" id="closeWishlistBtn">&times;</button>
+            </div>
+            <div class="wishlist-items" id="wishlistItems">
+                <!-- Wishlist items will be displayed here -->
+            </div>
+            <div class="wishlist-empty-note" id="wishlistEmptyNote">
+                <p>Wishlist kamu masih kosong. Tambahkan produk favorit untuk disimpan nanti.</p>
             </div>
         </div>
     </div>

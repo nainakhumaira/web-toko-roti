@@ -656,6 +656,98 @@ html {
 .wishlist-btn.active {
     background: var(--primary-color);
     border-color: var(--primary-color);
+    color: white;
+}
+
+.wishlist-nav-btn {
+    width: auto;
+    min-width: 60px;
+    height: 45px;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: white;
+    color: var(--primary-color);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: var(--transition);
+}
+
+.wishlist-nav-btn:hover {
+    transform: scale(1.05);
+}
+
+.wishlist-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(95%, 520px);
+    max-height: 80vh;
+    overflow-y: auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    z-index: 1200;
+    display: none;
+}
+
+.wishlist-modal.active {
+    display: block;
+}
+
+.wishlist-modal-content {
+    padding: 1.5rem;
+}
+
+.wishlist-items {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.wishlist-item {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    background: #fff8f2;
+}
+
+.wishlist-item img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.wishlist-item-info {
+    flex: 1;
+}
+
+.wishlist-item-info h4 {
+    margin-bottom: 0.4rem;
+}
+
+.wishlist-item-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.wishlist-empty-note {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 14px;
+    background: #fff4f0;
+    border: 1px solid #f0c2b5;
+    color: #8b4513;
 }
 
 /* =====================================================
@@ -766,6 +858,36 @@ html {
     margin-bottom: 1rem;
     color: var(--dark-color);
     line-height: 1.6;
+}
+
+.checkout-summary-items {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0.75rem 0;
+}
+
+.checkout-summary-item,
+.checkout-summary-line {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+}
+
+.checkout-summary-item {
+    padding: 0.65rem 0.75rem;
+    background: #fff7f0;
+    border-radius: 10px;
+}
+
+.checkout-summary-line {
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--border-color);
+}
+
+.checkout-summary-line.total-line {
+    margin-top: 0.5rem;
+    font-size: 1rem;
 }
 
 .checkout-buttons {

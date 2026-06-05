@@ -324,6 +324,12 @@ const elements = {
     categoryBtns: document.querySelectorAll(".category-btn"),
     cartBtn: document.getElementById("cartBtn"),
     cartCount: document.getElementById("cartCount"),
+    wishlistBtn: document.getElementById("wishlistBtn"),
+    wishlistCount: document.getElementById("wishlistCount"),
+    wishlistModal: document.getElementById("wishlistModal"),
+    closeWishlistBtn: document.getElementById("closeWishlistBtn"),
+    wishlistItems: document.getElementById("wishlistItems"),
+    wishlistEmptyNote: document.getElementById("wishlistEmptyNote"),
     hamburger: document.getElementById("hamburger"),
     mobileMenu: document.getElementById("mobileMenu"),
     
@@ -382,6 +388,7 @@ function init() {
     renderTestimonials();
     attachEventListeners();
     updateCartDisplay();
+    updateWishlistCount();
 }
 
 // =====================================================
@@ -431,7 +438,7 @@ function renderProducts(category = "semua") {
                     <button class="add-to-cart-btn" data-product-id="${product.id}">
                         Tambah ke Keranjang
                     </button>
-                    <button class="wishlist-btn" data-product-id="${product.id}">♡</button>
+                    <button class="wishlist-btn ${state.wishlist.includes(product.id) ? 'active' : ''}" data-product-id="${product.id}" aria-pressed="${state.wishlist.includes(product.id)}">♡</button>
                 </div>
             </div>
         </div>
@@ -506,12 +513,79 @@ function addToCart(productId, quantity = 1) {
 
 function toggleWishlist(productId, button) {
     const index = state.wishlist.indexOf(productId);
+    const product = products.find(p => p.id === productId);
     if (index > -1) {
         state.wishlist.splice(index, 1);
-        button.classList.remove("active");
+        if (button) button.classList.remove("active");
+        showNotification(`${product.title} dihapus dari wishlist`);
     } else {
         state.wishlist.push(productId);
-        button.classList.add("active");
+        if (button) button.classList.add("active");
+        showNotification(`${product.title} ditambahkan ke wishlist`);
+    }
+    updateWishlistCount();
+    if (elements.wishlistModal.classList.contains("active")) {
+        renderWishlist();
+    }
+}
+
+function updateWishlistCount() {
+    elements.wishlistCount.textContent = state.wishlist.length;
+}
+
+function renderWishlist() {
+    if (state.wishlist.length === 0) {
+        elements.wishlistItems.innerHTML = "";
+        elements.wishlistEmptyNote.style.display = "block";
+        return;
+    }
+
+    elements.wishlistEmptyNote.style.display = "none";
+    elements.wishlistItems.innerHTML = state.wishlist.map(productId => {
+        const product = products.find(p => p.id === productId);
+        const variant = getSelectedVariant(productId);
+        const image = variant?.image || product.image;
+        const title = variant ? `${product.title} - ${variant.name}` : product.title;
+        const price = variant ? variant.price : product.price;
+
+        return `
+            <div class="wishlist-item">
+                <img src="${image}" alt="${title}">
+                <div class="wishlist-item-info">
+                    <h4>${title}</h4>
+                    <p>Rp ${price.toLocaleString('id-ID')}</p>
+                </div>
+                <div class="wishlist-item-actions">
+                    <button class="add-to-cart-btn" data-product-id="${product.id}">Tambah ke Keranjang</button>
+                    <button class="wishlist-btn active" data-product-id="${product.id}">Hapus</button>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    document.querySelectorAll(".wishlist-item .add-to-cart-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const productId = parseInt(e.target.dataset.productId);
+            addToCart(productId);
+        });
+    });
+
+    document.querySelectorAll(".wishlist-item .wishlist-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const productId = parseInt(e.target.dataset.productId);
+            toggleWishlist(productId, btn);
+            renderProducts(state.currentCategory);
+        });
+    });
+}
+
+function toggleWishlistModal() {
+    const isActive = elements.wishlistModal.classList.contains("active");
+    elements.wishlistModal.classList.toggle("active");
+    elements.overlay.classList.toggle("active");
+
+    if (elements.wishlistModal.classList.contains("active")) {
+        renderWishlist();
     }
 }
 
@@ -767,6 +841,9 @@ function updateCartDisplay() {
     elements.cartCount.textContent = state.cart.reduce((sum, item) => sum + item.quantity, 0);
     renderCartItems();
     updateCartTotals();
+    if (elements.checkoutPanel.classList.contains("active")) {
+        renderCheckoutSummary();
+    }
 }
 
 function renderCartItems() {
@@ -876,17 +953,28 @@ function renderCheckoutSummary() {
     const subtotal = state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const tax = Math.round(subtotal * 0.1);
     const total = subtotal + tax;
-    
+
+    if (state.cart.length === 0) {
+        elements.checkoutSummary.innerHTML = `
+            <strong>Ringkasan Pesanan</strong>
+            <div>Keranjang kosong. Tambahkan produk terlebih dahulu.</div>
+        `;
+        return;
+    }
+
     const itemsHtml = state.cart.map(item => `
-        <div>${item.title} x${item.quantity} - Rp ${item.price.toLocaleString('id-ID')}</div>
+        <div class="checkout-summary-item">
+            <span>${item.title} x${item.quantity}</span>
+            <span>Rp ${ (item.price * item.quantity).toLocaleString('id-ID') }</span>
+        </div>
     `).join('');
     
     elements.checkoutSummary.innerHTML = `
         <strong>Ringkasan Pesanan</strong>
-        <div>${itemsHtml}</div>
-        <div>Subtotal: Rp ${subtotal.toLocaleString('id-ID')}</div>
-        <div>Pajak 10%: Rp ${tax.toLocaleString('id-ID')}</div>
-        <div><strong>Total: Rp ${total.toLocaleString('id-ID')}</strong></div>
+        <div class="checkout-summary-items">${itemsHtml}</div>
+        <div class="checkout-summary-line"><span>Subtotal</span><span>Rp ${subtotal.toLocaleString('id-ID')}</span></div>
+        <div class="checkout-summary-line"><span>Pajak 10%</span><span>Rp ${tax.toLocaleString('id-ID')}</span></div>
+        <div class="checkout-summary-line total-line"><span><strong>Total</strong></span><span><strong>Rp ${total.toLocaleString('id-ID')}</strong></span></div>
     `;
 }
 
@@ -917,10 +1005,17 @@ function confirmOrder() {
     const total = state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const tax = Math.round(total * 0.1);
     const finalTotal = total + tax;
+    const methodLabel = method === "pickup" ? "Pickup di Bakery" : "Delivery ke Alamat";
+    const paymentLabel = payment === "cod" ? "Bayar di Tempat (COD)" : payment === "transfer" ? "Transfer Bank" : "OVO / e-Wallet";
 
-    showNotification(`Pesanan untuk ${name} berhasil! Total pembayaran Rp ${finalTotal.toLocaleString('id-ID')}`);
+    showNotification(`Pesanan untuk ${name} berhasil! Total pembayaran Rp ${finalTotal.toLocaleString('id-ID')} (${methodLabel}, ${paymentLabel})`);
     elements.checkoutForm.reset();
     closeCheckoutPanel();
+
+    if (elements.cartModal.classList.contains("active")) {
+        toggleCartModal();
+    }
+
     state.cart = [];
     updateCartDisplay();
 }
@@ -982,8 +1077,13 @@ function showNotification(message) {
 
 function attachEventListeners() {
     elements.cartBtn.addEventListener("click", toggleCartModal);
+    elements.wishlistBtn.addEventListener("click", toggleWishlistModal);
     elements.closeCartBtn.addEventListener("click", toggleCartModal);
-    elements.overlay.addEventListener("click", toggleCartModal);
+    elements.closeWishlistBtn.addEventListener("click", toggleWishlistModal);
+    elements.overlay.addEventListener("click", () => {
+        if (elements.cartModal.classList.contains("active")) toggleCartModal();
+        if (elements.wishlistModal.classList.contains("active")) toggleWishlistModal();
+    });
     
     setupSearch();
     setupCategoryFilter();
@@ -994,13 +1094,12 @@ function attachEventListeners() {
     setupNewsletter();
     setupCheckout();
     
-    // Close search results on escape
+    // Close search results and modals on escape
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
             elements.searchResults.classList.remove("active");
-            if (elements.cartModal.classList.contains("active")) {
-                toggleCartModal();
-            }
+            if (elements.cartModal.classList.contains("active")) toggleCartModal();
+            if (elements.wishlistModal.classList.contains("active")) toggleWishlistModal();
         }
     });
 }
