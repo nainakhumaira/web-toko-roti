@@ -22,10 +22,13 @@ CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     category_id INT,
     nama_produk VARCHAR(100) NOT NULL,
+    kategori VARCHAR(50) NOT NULL,
     deskripsi TEXT,
     harga DECIMAL(10, 2) NOT NULL,
     stok INT DEFAULT 0,
     gambar_url VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
 );
 
@@ -37,6 +40,8 @@ CREATE TABLE product_variants (
     harga DECIMAL(10, 2) NOT NULL,
     gambar_url VARCHAR(255),
     stok INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
@@ -76,19 +81,19 @@ INSERT INTO categories (nama_kategori, deskripsi) VALUES
 ('Kue Kering', 'Kue lapis, donat, muffin, dan camilan manis lainnya'),
 ('Kue Tart', 'Kue tart elegan untuk perayaan dan hadiah spesial');
 
-INSERT INTO products (category_id, nama_produk, deskripsi, harga, stok, gambar_url) VALUES 
-(1, 'Roti Tawar Gulung', 'Roti tawar gulung lembut dengan variasi isi premium.', 48000.00, 40, 'roti_tawar_gulung.jpg'),
-(1, 'Baguette Perancis', 'Baguette tradisional Prancis dengan kulit renyah.', 50000.00, 35, 'baguette.jpg'),
-(1, 'Roti Gandum Sehat', 'Roti gandum penuh serat untuk gaya hidup sehat.', 55000.00, 25, 'roti_gandum.jpg'),
-(1, 'Roti Sourdough', 'Roti sourdough fermentasi alami dengan rasa kompleks.', 60000.00, 20, 'roti_sourdough.jpg'),
-(2, 'Croissant Butter', 'Croissant lapis mentega premium dengan rasa khas.', 65000.00, 30, 'croissant.jpg'),
-(2, 'Roti Putih Premium', 'Roti putih premium yang lembut untuk sandwich dan roti isi.', 45000.00, 45, 'roti_putih.jpg'),
-(3, 'Kue Lapis Legit', 'Kue lapis legit dengan lapisan manis dan aroma rempah.', 75000.00, 20, 'kue_lapis_legit.jpg'),
-(3, 'Donat Coklat Glazur', 'Donat empuk dengan lapisan coklat manis.', 35000.00, 50, 'donat_coklat.jpg'),
-(3, 'Muffin Blueberry', 'Muffin lembut penuh blueberry segar.', 40000.00, 40, 'muffin_blueberry.jpg'),
-(4, 'Kue Tart Coklat', 'Kue tart coklat dengan Ganache lembut dan topping elegan.', 180000.00, 15, 'tart_coklat.jpg'),
-(4, 'Kue Tart Red Velvet', 'Kue tart red velvet dengan krim keju halus.', 190000.00, 12, 'tart_red_velvet.jpg'),
-(4, 'Kue Tart Buah Segar', 'Kue tart buah segar dengan buah musiman dan krim vanilla.', 200000.00, 12, 'tart_buah.jpg');
+INSERT INTO products (category_id, nama_produk, kategori, deskripsi, harga, stok, gambar_url) VALUES 
+(1, 'Roti Tawar Gulung', 'Roti Putih', 'Roti tawar gulung lembut dengan variasi isi premium.', 48000.00, 40, 'roti_tawar_gulung.jpg'),
+(1, 'Baguette Perancis', 'Roti Putih', 'Baguette tradisional Prancis dengan kulit renyah.', 50000.00, 35, 'baguette.jpg'),
+(1, 'Roti Gandum Sehat', 'Roti Putih', 'Roti gandum penuh serat untuk gaya hidup sehat.', 55000.00, 25, 'roti_gandum.jpg'),
+(1, 'Roti Sourdough', 'Roti Putih', 'Roti sourdough fermentasi alami dengan rasa kompleks.', 60000.00, 20, 'roti_sourdough.jpg'),
+(2, 'Croissant Butter', 'Roti Coklat & Croissant', 'Croissant lapis mentega premium dengan rasa khas.', 65000.00, 30, 'croissant.jpg'),
+(2, 'Roti Putih Premium', 'Roti Coklat & Croissant', 'Roti putih premium yang lembut untuk sandwich dan roti isi.', 45000.00, 45, 'roti_putih.jpg'),
+(3, 'Kue Lapis Legit', 'Kue Kering', 'Kue lapis legit dengan lapisan manis dan aroma rempah.', 75000.00, 20, 'kue_lapis_legit.jpg'),
+(3, 'Donat Coklat Glazur', 'Kue Kering', 'Donat empuk dengan lapisan coklat manis.', 35000.00, 50, 'donat_coklat.jpg'),
+(3, 'Muffin Blueberry', 'Kue Kering', 'Muffin lembut penuh blueberry segar.', 40000.00, 40, 'muffin_blueberry.jpg'),
+(4, 'Kue Tart Coklat', 'Kue Tart', 'Kue tart coklat dengan Ganache lembut dan topping elegan.', 180000.00, 15, 'tart_coklat.jpg'),
+(4, 'Kue Tart Red Velvet', 'Kue Tart', 'Kue tart red velvet dengan krim keju halus.', 190000.00, 12, 'tart_red_velvet.jpg'),
+(4, 'Kue Tart Buah Segar', 'Kue Tart', 'Kue tart buah segar dengan buah musiman dan krim vanilla.', 200000.00, 12, 'tart_buah.jpg');
 
 INSERT INTO product_variants (product_id, nama_varian, harga, stok, gambar_url) VALUES 
 (1, 'Original', 48000.00, 40, 'roti_tawar_gulung_original.jpg'),

@@ -2,7 +2,9 @@
 // PRODUCT DATA
 // =====================================================
 
-const products = [
+import { products, categories, createProduct, addVariantToProduct, getProductDisplayData, getInventorySummary, formatCurrency } from './productCatalog.js';
+
+/* Legacy product data kept out of the runtime build.
     {
         id: 1,
         title: "Roti Tawar Gulung",
@@ -239,6 +241,8 @@ const products = [
     }
 ];
 
+*/
+
 // =====================================================
 // TESTIMONIALS DATA
 // =====================================================
@@ -342,6 +346,11 @@ const elements = {
     // Products
     productsGrid: document.getElementById("productsGrid"),
     productsSection: document.getElementById("productsSection"),
+    inventoryStats: document.getElementById("inventoryStats"),
+    addProductForm: document.getElementById("addProductForm"),
+    addVariantForm: document.getElementById("addVariantForm"),
+    productSelect: document.getElementById("productSelect"),
+    databaseTableBody: document.getElementById("databaseTableBody"),
     
     // Custom Cake
     cakeLayer: document.getElementById("cakeLayer"),
@@ -396,21 +405,19 @@ function init() {
 // =====================================================
 
 function renderProducts(category = "semua") {
-    const filteredProducts = category === "semua" 
-        ? products 
+    const filteredProducts = category === "semua"
+        ? products
         : products.filter(p => p.category === category);
-    
+
     elements.productsGrid.innerHTML = filteredProducts.map(product => {
         const selectedIndex = state.selectedVariants[product.id] ?? 0;
-        const variant = product.variants ? product.variants[selectedIndex] : null;
-        const image = variant?.image || product.image;
-        const price = variant?.price || product.price;
-        const variantLabel = variant ? ` - ${variant.name}` : "";
+        const { image, price, stock, variantLabel, variantName } = getProductDisplayData(product, selectedIndex);
+        const stockLevel = stock > 10 ? 'in-stock' : stock > 0 ? 'limited' : 'out';
 
         return `
-        <div class="product-card" data-product-id="${product.id}">
+        <article class="product-card" data-product-id="${product.id}">
             <div class="product-image">
-                <img src="${image}" alt="${product.title} ${variantLabel}">
+                <img src="${image}" alt="${product.title}${variantLabel}">
                 <div class="product-badges">
                     ${product.badges.map(badge => `
                         <span class="badge ${badge.toLowerCase().replace(/\s/g, '-')}">${badge}</span>
@@ -418,13 +425,17 @@ function renderProducts(category = "semua") {
                 </div>
             </div>
             <div class="product-info">
+                <div class="product-meta">
+                    <span class="product-category">${categories[product.category]?.label || product.category}</span>
+                    <span class="stock-pill ${stockLevel}">${stock > 0 ? `${stock} tersisa` : 'Habis'}</span>
+                </div>
                 <h3 class="product-title">${product.title}${variantLabel}</h3>
                 <p class="product-description">${product.description}</p>
                 <div class="product-rating">
                     <span class="stars">${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}</span>
                     <span class="rating-count">${product.reviews} ulasan</span>
                 </div>
-                ${product.variants ? `
+                ${product.variants?.length ? `
                 <div class="product-variants">
                     ${product.variants.map((variantItem, index) => `
                         <button class="variant-btn ${selectedIndex === index ? 'active' : ''}" data-product-id="${product.id}" data-variant-index="${index}">${variantItem.name}</button>
@@ -432,7 +443,8 @@ function renderProducts(category = "semua") {
                 </div>
                 ` : ''}
                 <div class="product-price">
-                    <span class="price">Rp ${price.toLocaleString('id-ID')}</span>
+                    <span class="price">${formatCurrency(price)}</span>
+                    <span class="product-stock">${variantName ? `Varian: ${variantName}` : 'Stok tersedia'}</span>
                 </div>
                 <div class="product-actions">
                     <button class="add-to-cart-btn" data-product-id="${product.id}">
@@ -441,10 +453,10 @@ function renderProducts(category = "semua") {
                     <button class="wishlist-btn ${state.wishlist.includes(product.id) ? 'active' : ''}" data-product-id="${product.id}" aria-pressed="${state.wishlist.includes(product.id)}">♡</button>
                 </div>
             </div>
-        </div>
+        </article>
     `;
     }).join('');
-    
+
     attachProductEventListeners();
 }
 
@@ -489,6 +501,12 @@ function addToCart(productId, quantity = 1) {
     const itemTitle = variant ? `${product.title} - ${variant.name}` : product.title;
     const itemPrice = variant ? variant.price : product.price;
     const itemImage = variant ? variant.image : product.image;
+    const stock = variant ? variant.stock : product.stock;
+
+    if (stock <= 0) {
+        showNotification(`${itemTitle} sedang habis, silakan pilih varian lain.`);
+        return;
+    }
 
     const existingItem = state.cart.find(item => item.id === productId && item.variantName === (variant?.name || null) && !item.isCustom);
     
@@ -613,15 +631,19 @@ function setupSearch() {
             );
             
             if (results.length > 0) {
-                elements.searchResults.innerHTML = results.map(product => `
-                    <div class="search-result-item" data-product-id="${product.id}">
-                        <img src="${product.image}" alt="${product.title}" class="search-result-img">
-                        <div class="search-result-info">
-                            <h4>${product.title}</h4>
-                            <p>Rp ${product.price.toLocaleString('id-ID')}</p>
+                elements.searchResults.innerHTML = results.map(product => {
+                    const selectedIndex = state.selectedVariants[product.id] ?? 0;
+                    const { image, price } = getProductDisplayData(product, selectedIndex);
+                    return `
+                        <div class="search-result-item" data-product-id="${product.id}">
+                            <img src="${image}" alt="${product.title}" class="search-result-img">
+                            <div class="search-result-info">
+                                <h4>${product.title}</h4>
+                                <p>${formatCurrency(price)}</p>
+                            </div>
                         </div>
-                    </div>
-                `).join('');
+                    `;
+                }).join('');
                 
                 elements.searchResults.classList.add("active");
                 
@@ -793,6 +815,82 @@ function addCustomCakeToCart() {
     elements.toppingCheckboxes.forEach(cb => cb.checked = false);
     elements.cakeSize.value = "sedang";
     updateCustomCakePrice();
+}
+
+function populateProductSelect() {
+    elements.productSelect.innerHTML = products.map(product => `
+        <option value="${product.id}">${product.title}</option>
+    `).join('');
+}
+
+function renderInventoryDashboard() {
+    const summary = getInventorySummary();
+
+    elements.inventoryStats.innerHTML = `
+        <div class="stat-item"><strong>${summary.totalProducts}</strong><span>Produk aktif</span></div>
+        <div class="stat-item"><strong>${summary.totalVariants}</strong><span>Varian tersimpan</span></div>
+        <div class="stat-item"><strong>${summary.lowStockProducts}</strong><span>Produk stok rendah</span></div>
+        <div class="stat-item"><strong>${summary.totalStock}</strong><span>Stok total tersedia</span></div>
+    `;
+
+    elements.databaseTableBody.innerHTML = products.map(product => `
+        <tr>
+            <td>${product.id}</td>
+            <td>${product.title}</td>
+            <td>${categories[product.category]?.label || product.category}</td>
+            <td>${formatCurrency(product.price)}</td>
+            <td>${product.stock}</td>
+            <td>${product.variants?.length || 0}</td>
+            <td>${new Date(product.createdAt).toLocaleDateString('id-ID')}</td>
+            <td>${new Date(product.updatedAt).toLocaleDateString('id-ID')}</td>
+        </tr>
+    `).join('');
+}
+
+function setupProductManagement() {
+    populateProductSelect();
+    renderInventoryDashboard();
+
+    elements.addProductForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const payload = Object.fromEntries(formData.entries());
+
+        createProduct({
+            title: payload.title,
+            description: payload.description,
+            price: payload.price,
+            stock: payload.stock,
+            image: payload.image,
+            category: payload.category,
+            variants: []
+        });
+
+        e.target.reset();
+        populateProductSelect();
+        renderInventoryDashboard();
+        renderProducts(state.currentCategory);
+        showNotification('Produk baru berhasil ditambahkan ke katalog.');
+    });
+
+    elements.addVariantForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const payload = Object.fromEntries(formData.entries());
+
+        addVariantToProduct(Number(payload.productId), {
+            name: payload.variantName,
+            price: payload.variantPrice,
+            stock: payload.variantStock,
+            image: payload.variantImage
+        });
+
+        e.target.reset();
+        populateProductSelect();
+        renderInventoryDashboard();
+        renderProducts(state.currentCategory);
+        showNotification('Varian baru berhasil ditambahkan ke produk.');
+    });
 }
 
 // =====================================================
@@ -1089,6 +1187,7 @@ function attachEventListeners() {
     setupCategoryFilter();
     setupHeroSlider();
     setupCustomCake();
+    setupProductManagement();
     setupTestimonials();
     setupHamburgerMenu();
     setupNewsletter();

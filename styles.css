@@ -659,6 +659,153 @@ html {
     color: white;
 }
 
+.product-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.8rem;
+}
+
+.product-category {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background: #fff3e8;
+    color: var(--secondary-color);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.stock-pill {
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.stock-pill.in-stock {
+    background: #eaf8ee;
+    color: #1f7a3b;
+}
+
+.stock-pill.limited {
+    background: #fff4d6;
+    color: #a96b00;
+}
+
+.stock-pill.out {
+    background: #ffe6e6;
+    color: #b42318;
+}
+
+.product-stock {
+    display: block;
+    margin-top: 0.35rem;
+    color: #777;
+    font-size: 0.82rem;
+}
+
+.catalog-dashboard {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.dashboard-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.dashboard-card.full-width {
+    grid-column: 1 / -1;
+}
+
+.dashboard-card h3 {
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+}
+
+.stat-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.stat-item {
+    padding: 1rem;
+    border-radius: 12px;
+    background: var(--light-color);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.stat-item strong {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea,
+.admin-form button {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    padding: 0.8rem 0.95rem;
+    font: inherit;
+}
+
+.admin-form button {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.database-table-wrapper {
+    overflow-x: auto;
+}
+
+.database-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 720px;
+}
+
+.database-table th,
+.database-table td {
+    padding: 0.9rem;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+}
+
+.database-table th {
+    background: var(--light-color);
+    color: var(--dark-color);
+}
+
 .wishlist-nav-btn {
     width: auto;
     min-width: 60px;
@@ -1616,6 +1763,14 @@ html {
     .cake-layer {
         width: 200px;
         height: 200px;
+    }
+
+    .catalog-dashboard {
+        padding: 0 1rem 3rem;
+    }
+
+    .stat-list {
+        grid-template-columns: 1fr;
     }
 }
 
